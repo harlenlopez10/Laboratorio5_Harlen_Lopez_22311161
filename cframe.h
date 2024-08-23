@@ -44,6 +44,8 @@ private slots:
 
     void on_BtnSumar_clicked();
 
+    void on_BtnRestar_clicked();
+
 private:
     Ui::cframe *ui;
 

@@ -198,24 +198,32 @@ void cframe::on_btnHacerMatrices_clicked()
     fil1 = ui->sB_Fil1->value();
     col1 = ui->sB_Col1->value();
 
+    // Inicializar el generador de números aleatorios
+    std::srand(static_cast<unsigned>(std::time(0)));
+
+    // Liberar memoria
     if (matriz1 != nullptr) {
         for (int i = 0; i < fil1; ++i) {
             delete[] matriz1[i];
         }
         delete[] matriz1;
+        matriz1 = nullptr;
     }
 
+    // Crear nueva matriz
     matriz1 = new int*[fil1];
     for (int i = 0; i < fil1; ++i) {
         matriz1[i] = new int[col1];
     }
 
-    for (int i = 0, num = 1; i < fil1; ++i) {
-        for (int j = 0; j < col1; ++j, ++num) {
-            matriz1[i][j] = num;
+
+    for (int i = 0; i < fil1; ++i) {
+        for (int j = 0; j < col1; ++j) {
+            matriz1[i][j] = std::rand() % 100 + 1; // Valores aleatorios entre 1 y 50
         }
     }
 
+    // Mostrar matriz en QTableWidget
     ui->tW_tabla1->setRowCount(fil1);
     ui->tW_tabla1->setColumnCount(col1);
     for (int i = 0; i < fil1; ++i) {
@@ -229,23 +237,28 @@ void cframe::on_btnHacerMatrices_clicked()
     fil2 = ui->sB_Fil2->value();
     col2 = ui->sB_Col2->value();
 
-    // Inicializar matriz2
+
+    std::srand(static_cast<unsigned>(std::time(0)));
+
+
     if (matriz2 != nullptr) {
         for (int i = 0; i < fil2; ++i) {
             delete[] matriz2[i];
         }
         delete[] matriz2;
+        matriz2 = nullptr;
     }
+
 
     matriz2 = new int*[fil2];
     for (int i = 0; i < fil2; ++i) {
         matriz2[i] = new int[col2];
     }
 
-    // Rellenar la matriz con valores de ejemplo
-    for (int i = 0, num = 1; i < fil2; ++i) {
-        for (int j = 0; j < col2; ++j, ++num) {
-            matriz2[i][j] = num;
+
+    for (int i = 0; i < fil2; ++i) {
+        for (int j = 0; j < col2; ++j) {
+            matriz2[i][j] = std::rand() % 50 + 1;
         }
     }
 
@@ -301,4 +314,42 @@ void cframe::on_BtnSumar_clicked()
 }
 
 
+
+
+void cframe::on_BtnRestar_clicked()
+{
+    if (fil1 == fil2 && col1 == col2) {
+        // Crear matriz para el resultado
+        int** resultado = new int*[fil1];
+        for (int i = 0; i < fil1; ++i) {
+            resultado[i] = new int[col1];
+        }
+
+        // Realizar la resta
+        for (int i = 0; i < fil1; ++i) {
+            for (int j = 0; j < col1; ++j) {
+                resultado[i][j] = matriz1[i][j] - matriz2[i][j];
+            }
+        }
+
+
+        ui->tW_Resultado->setRowCount(fil1);
+        ui->tW_Resultado->setColumnCount(col1);
+        for (int i = 0; i < fil1; ++i) {
+            for (int j = 0; j < col1; ++j) {
+                QTableWidgetItem* item = new QTableWidgetItem(QString::number(resultado[i][j]));
+                ui->tW_Resultado->setItem(i, j, item);
+            }
+        }
+
+
+        for (int i = 0; i < fil1; ++i) {
+            delete[] resultado[i];
+        }
+        delete[] resultado;
+    } else {
+
+        QMessageBox::warning(this, "Error", "Las matrices deben ser de la misma dimensión para restar.");
+    }
+}
 
