@@ -9,13 +9,31 @@
 
 cframe::cframe(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::cframe)
+    , ui(new Ui::cframe),
+    matriz1(nullptr),
+    matriz2(nullptr),
+    fil1(0), col1(0),
+    fil2(0), col2(0)
 {
     ui->setupUi(this);
 }
 
 cframe::~cframe()
 {
+
+    if (matriz1 != nullptr) {
+        for (int i = 0; i < fil1; ++i) {
+            delete[] matriz1[i];
+        }
+        delete[] matriz1;
+    }
+    if (matriz2 != nullptr) {
+        for (int i = 0; i < fil2; ++i) {
+            delete[] matriz2[i];
+        }
+        delete[] matriz2;
+    }
+
     delete ui;
 }
 
@@ -177,17 +195,9 @@ void cframe::on_ButtonExercise4_clicked()
 void cframe::on_btnHacerMatrices_clicked()
 {
 
-    int fil1, col1;
-    int fil2, col2;
-    int** matriz1 = nullptr;
-    int** matriz2 = nullptr;
-
-    // Generar la primera matriz
-    // Obtener dimensiones
     fil1 = ui->sB_Fil1->value();
     col1 = ui->sB_Col1->value();
 
-    // Inicializar matriz1
     if (matriz1 != nullptr) {
         for (int i = 0; i < fil1; ++i) {
             delete[] matriz1[i];
@@ -200,14 +210,12 @@ void cframe::on_btnHacerMatrices_clicked()
         matriz1[i] = new int[col1];
     }
 
-    // Rellenar la matriz con valores de ejemplo
     for (int i = 0, num = 1; i < fil1; ++i) {
         for (int j = 0; j < col1; ++j, ++num) {
             matriz1[i][j] = num;
         }
     }
 
-    // Mostrar matriz en QTableWidget
     ui->tW_tabla1->setRowCount(fil1);
     ui->tW_tabla1->setColumnCount(col1);
     for (int i = 0; i < fil1; ++i) {
@@ -256,47 +264,40 @@ void cframe::on_btnHacerMatrices_clicked()
 
 void cframe::on_BtnSumar_clicked()
 {
-
-
     if (matriz1 == nullptr || matriz2 == nullptr) {
         QMessageBox::warning(this, "Error", "Una o ambas matrices no están inicializadas.");
         return;
     }
 
-    if (fil1 == 0 || col1 == 0 || fil2 == 0 || col2 == 0) {
-        QMessageBox::warning(this, "Error", "Las dimensiones de las matrices no están definidas.");
+    if (fil1 != fil2 || col1 != col2) {
+        QMessageBox::warning(this, "Error", "Las matrices deben ser de la misma dimensión para sumar.");
         return;
     }
 
-    if (fil1 == fil2 && col1 == col2) {
-        int** resultado = new int*[fil1];
-        for (int i = 0; i < fil1; ++i) {
-            resultado[i] = new int[col1];
-        }
-
-        for (int i = 0; i < fil1; ++i) {
-            for (int j = 0; j < col1; ++j) {
-                resultado[i][j] = matriz1[i][j] + matriz2[i][j];
-            }
-        }
-
-        ui->tW_Resultado->setRowCount(fil1);
-        ui->tW_Resultado->setColumnCount(col1);
-        for (int i = 0; i < fil1; ++i) {
-            for (int j = 0; j < col1; ++j) {
-                QTableWidgetItem* item = new QTableWidgetItem(QString::number(resultado[i][j]));
-                ui->tW_Resultado->setItem(i, j, item);
-            }
-        }
-
-        // Liberar memoria
-        for (int i = 0; i < fil1; ++i) {
-            delete[] resultado[i];
-        }
-        delete[] resultado;
-    } else {
-        QMessageBox::warning(this, "Error", "Las matrices deben ser de la misma dimensión para sumar.");
+    int** resultado = new int*[fil1];
+    for (int i = 0; i < fil1; ++i) {
+        resultado[i] = new int[col1];
     }
+
+    for (int i = 0; i < fil1; ++i) {
+        for (int j = 0; j < col1; ++j) {
+            resultado[i][j] = matriz1[i][j] + matriz2[i][j];
+        }
+    }
+
+    ui->tW_Resultado->setRowCount(fil1);
+    ui->tW_Resultado->setColumnCount(col1);
+    for (int i = 0; i < fil1; ++i) {
+        for (int j = 0; j < col1; ++j) {
+            QTableWidgetItem* item = new QTableWidgetItem(QString::number(resultado[i][j]));
+            ui->tW_Resultado->setItem(i, j, item);
+        }
+    }
+
+    for (int i = 0; i < fil1; ++i) {
+        delete[] resultado[i];
+    }
+    delete[] resultado;
 }
 
 
