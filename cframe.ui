@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="Inicio">
      <widget class="QPushButton" name="btnCERRAR">
@@ -159,9 +159,15 @@ color: rgb(0, 0, 0);</string>
        <rect>
         <x>30</x>
         <y>70</y>
-        <width>121</width>
+        <width>131</width>
         <height>51</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <bold>true</bold>
+       </font>
       </property>
       <property name="text">
        <string>Sumar Matrices</string>
@@ -172,9 +178,15 @@ color: rgb(0, 0, 0);</string>
        <rect>
         <x>30</x>
         <y>130</y>
-        <width>121</width>
+        <width>131</width>
         <height>51</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <bold>true</bold>
+       </font>
       </property>
       <property name="text">
        <string>Restar Matrices</string>
@@ -185,9 +197,15 @@ color: rgb(0, 0, 0);</string>
        <rect>
         <x>30</x>
         <y>190</y>
-        <width>161</width>
+        <width>171</width>
         <height>51</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <bold>true</bold>
+       </font>
       </property>
       <property name="text">
        <string>Multiplicar Matrices</string>
@@ -686,6 +704,146 @@ color: rgb(0, 0, 0);</string>
       </property>
       <property name="text">
        <string>Ejercicio 3</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>200</y>
+        <width>101</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <italic>true</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Columnas:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>100</y>
+        <width>491</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <italic>true</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Ingrese el numero de Filas y Columnas que desea para la Matriz</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="tW_tabla4">
+      <property name="geometry">
+       <rect>
+        <x>580</x>
+        <y>70</y>
+        <width>481</width>
+        <height>351</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="sB_Fil3">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>160</y>
+        <width>101</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnHacerMatrizTrans">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>170</y>
+        <width>131</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Hacer Matriz</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>130</y>
+        <width>101</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <italic>true</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Filas:</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="sB_Col3">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>230</y>
+        <width>101</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnTransponer">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>310</y>
+        <width>201</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Transponer</string>
       </property>
      </widget>
     </widget>

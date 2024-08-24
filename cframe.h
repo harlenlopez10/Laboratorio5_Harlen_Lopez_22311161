@@ -46,6 +46,12 @@ private slots:
 
     void on_BtnRestar_clicked();
 
+    void on_BtnMultiplicar_clicked();
+
+    void on_btnHacerMatrizTrans_clicked();
+
+    void on_btnTransponer_clicked();
+
 private:
     Ui::cframe *ui;
 
@@ -58,6 +64,7 @@ private:
     int fil2, col2;
     int** matriz1;
     int** matriz2;
+    int** matriz3;
 
 
 };

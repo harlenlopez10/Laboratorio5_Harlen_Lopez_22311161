@@ -353,3 +353,116 @@ void cframe::on_BtnRestar_clicked()
     }
 }
 
+
+void cframe::on_BtnMultiplicar_clicked()
+{
+    if (col1 == fil2 && matriz1 != nullptr && matriz2 != nullptr) {
+
+        int** resultado = new int*[fil1];
+        for (int i = 0; i < fil1; ++i) {
+            resultado[i] = new int[col2];
+        }
+
+
+        for (int i = 0; i < fil1; ++i) {
+            for (int j = 0; j < col2; ++j) {
+                resultado[i][j] = 0;
+            }
+        }
+
+
+        for (int i = 0; i < fil1; ++i) {
+            for (int j = 0; j < col2; ++j) {
+                for (int k = 0; k < col1; ++k) { // o `k < fil2` ya que `col1 == fil2`
+                    resultado[i][j] += matriz1[i][k] * matriz2[k][j];
+                }
+            }
+        }
+
+
+        ui->tW_Resultado->setRowCount(fil1);
+        ui->tW_Resultado->setColumnCount(col2);
+        for (int i = 0; i < fil1; ++i) {
+            for (int j = 0; j < col2; ++j) {
+                QTableWidgetItem* item = new QTableWidgetItem(QString::number(resultado[i][j]));
+                ui->tW_Resultado->setItem(i, j, item);
+            }
+        }
+
+
+        for (int i = 0; i < fil1; ++i) {
+            delete[] resultado[i];
+        }
+        delete[] resultado;
+    } else {
+        // Mostrar un mensaje de error si las dimensiones no son compatibles o si las matrices no están inicializadas
+        QMessageBox::warning(this, "Error", "Las matrices deben tener dimensiones compatibles para multiplicar y deben estar inicializadas.");
+    }
+}
+
+
+void cframe::on_btnHacerMatrizTrans_clicked()
+{
+    fil= ui->sB_Fil3->value();
+    col = ui->sB_Col3->value();
+
+    matriz3 = new int*[fil];//CREANDO FILAS
+
+    for (int fi = 0; fi < col; fi++) {
+        matriz3[fi] = new int[col];//CREANDO COLUMNAS
+    }
+
+    for (int fi = 0, num = 1; fi < fil; ++fi) {
+        for (int co = 0; co < col; co++,num++) {
+            matriz3[fi][co] = num;
+        }
+    }
+
+    ui->tW_tabla4->setRowCount(fil);
+    ui->tW_tabla4->setColumnCount(col);
+
+    for (int fi = 0; fi < fil; fi++) {
+        for (int co = 0; co < col; co++) {
+            QTableWidgetItem* item = new QTableWidgetItem(QString::number(matriz3[fi][co]));
+            ui->tW_tabla4->setItem(fi,co,item);
+        }
+    }
+}
+
+
+void cframe::on_btnTransponer_clicked()
+{
+    if (matriz3 != nullptr) {
+
+        int** transpuesta = new int*[col];
+        for (int i = 0; i < col; ++i) {
+            transpuesta[i] = new int[fil];
+        }
+
+
+        for (int i = 0; i < fil; ++i) {
+            for (int j = 0; j < col; ++j) {
+                transpuesta[j][i] = matriz3[i][j];
+            }
+        }
+
+
+        ui->tW_tabla4->setRowCount(col);
+        ui->tW_tabla4->setColumnCount(fil);
+        for (int i = 0; i < col; ++i) {
+            for (int j = 0; j < fil; ++j) {
+                QTableWidgetItem* item = new QTableWidgetItem(QString::number(transpuesta[i][j]));
+                ui->tW_tabla4->setItem(i, j, item);
+            }
+        }
+
+
+        for (int i = 0; i < col; ++i) {
+            delete[] transpuesta[i];
+        }
+        delete[] transpuesta;
+    } else {
+        QMessageBox::warning(this, "Error", "La matriz no está inicializada.");
+    }
+}
+
